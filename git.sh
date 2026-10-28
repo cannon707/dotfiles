@@ -3,9 +3,9 @@
 ##############
 
 # pull, rebase, prune, fetch, clean up old branches
-alias gup=$'git pull --rebase && git remote update origin --prune && git fetch -p -t -P && for branch in $(git for-each-ref \'%(refname) %(upstream:track)\' refs/heads | awk \'$2 == "[gone]" {sub("refs/heads/", "", $1); print $1}\'); do git branch -D $branch; done'
+alias gup=$'git pull --rebase && git remote update origin --prune && git fetch -p -t -P && for branch in $(git for-each-ref --format=\'%(refname) %(upstream:track)\' refs/heads | awk \'$2 == "[gone]" {sub("refs/heads/", "", $1); print $1}\'); do git branch -D "$branch"; done'
 
-# Creat the branch and set the upstream
+# Create the branch and set the upstream
 gnew() {
   local branchName=$1
   git checkout -b $branchName
